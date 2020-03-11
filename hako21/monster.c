@@ -47,7 +47,7 @@ void Monster::makeMonster(int l) {
 	k = 1 + Util::dice(7);
 	break;
     }
-    
+
     int param = k * 20 + baseHP[k] + Util::dice(diffHP[k] + 1);
     fromParam(param);
 }

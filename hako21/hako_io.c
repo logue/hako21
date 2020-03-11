@@ -45,7 +45,7 @@ int HakoIO::readInfoFile(int number){
 	// バックアップファイル
 	sprintf(buffer, "%s.bak%d/info.cgi", Value::dirName, number);
     }
-    
+
     // ファイルを開く
     ifstream ifs;
     ifs.open(buffer);
@@ -62,7 +62,7 @@ int HakoIO::readInfoFile(int number){
 int HakoIO::writeInfoFile(){
     // ファイル名の設定
     sprintf(buffer, "%s/info.cgi", Value::dirName);
-    
+
     // ファイルを開く
     ofstream ofs;
     ofs.open(buffer);
@@ -117,7 +117,7 @@ int HakoIO::writeComFile(int id) {
 int HakoIO::readMapFile(){
     // ファイル名の設定
     sprintf(buffer, "%s/map.cgi", Value::dirName);
-    
+
     // ファイルを開く
     ifstream ifs;
     ifs.open(buffer);
@@ -137,7 +137,7 @@ int HakoIO::readMapFile(){
 int HakoIO::writeMapFile(){
     // ファイル名の設定
     sprintf(buffer, "%s/map.cgi", Value::dirName);
-    
+
     // ファイルを開く
     ofstream ofs;
     ofs.open(buffer);
@@ -332,7 +332,7 @@ int HakoIO::cgiInput(){
 	pos2++;
     }
     *pos2 = 0;
-    
+
 
     // 各キーワードの解釈
     count = 0;
@@ -457,7 +457,7 @@ void HakoIO::cookieOutput(char *name, char *cont) {
 		   "Thursday", "Friday", "Saturday"};
     char *mon[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 		   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-    sprintf(buffer, 
+    sprintf(buffer,
 	    "Set-Cookie: %s%s%s=%s; expires=%s, %02d-%s-%04d %02d:%02d:%02d GMT\n",
 	    Value::cgiURL,Value::configName,name, cont, day[t->tm_wday], t->tm_mday,
 	    mon[t->tm_mon], 1900 + t->tm_year, t->tm_hour, t->tm_min, t->tm_sec);
@@ -473,7 +473,7 @@ void HakoIO::setLogfileName(char *c, int num) {
 void HakoIO::logOpen() {
     // ファイル名の設定
     setLogfileName(buffer, 0);
-    
+
     // ファイルを開く
     logofs = new ofstream();
     logofs->open(buffer);
@@ -507,7 +507,7 @@ void HakoIO::logOutput(int kind, int secret, int mIsland, int sIsland,
 void HakoIO::hisOutput(int kind, char *name, char *name2) {
     // 発見ログファイル名の設定
     sprintf(buffer, "%s/loghis.cgi", Value::dirName);
-    
+
     // ファイルを開く(こちらは追加オープン)
     ofstream ofs;
     ofs.open(buffer, ios::app);
@@ -533,7 +533,7 @@ void HakoIO::hisCut() {
 
     // 発見ログファイル名の設定
     sprintf(buffer, "%s/loghis.cgi", Value::dirName);
-    
+
     // ファイルを開く
     ifstream ifs;
     ifs.open(buffer);

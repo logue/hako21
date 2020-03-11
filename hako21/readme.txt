@@ -59,13 +59,13 @@
 ―――――――――――――――――――――――――――――――――――
 無料アカウントや、以下のリストに書かれているサーバーなど、
 設置が禁止されているサーバーでの設置は絶対にやめて下さい。
-・Pos.toネット(***.pos.to) 
-・INTERNET P.O.Box(***.pobox.ne.jp、www*.pobox.ne.jp/~***/) 
-・FASネット 
-・takeoff.ne.jp 
-・MILKCAFE(www.milkcafe.com) 
-・シナプスインターネットサービス 
-・ReveryNet （レヴァリネット） 
+・Pos.toネット(***.pos.to)
+・INTERNET P.O.Box(***.pobox.ne.jp、www*.pobox.ne.jp/~***/)
+・FASネット
+・takeoff.ne.jp
+・MILKCAFE(www.milkcafe.com)
+・シナプスインターネットサービス
+・ReveryNet （レヴァリネット）
 
 ―――――――――――――――――――――――――――――――――――
  設置方法ガイダンス
@@ -117,8 +117,8 @@ hakow.cssは任意です。
 
 public_html (ホームディレクトリ)
       |
-      +-- hako21 / 
-             |    MakeFike
+      +-- hako21 /
+             |    MakeFile
              |    hakow.js
              |    hakow.css
              |    config.cgi   [644]

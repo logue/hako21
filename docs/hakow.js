@@ -48,7 +48,7 @@ function initialize() {
     changeCommandBG = '#DDDDFF';
 
     // コマンド
-    comlist = 
+    comlist =
 	[
 	 [1,'整地',5],
 	 [62,'食料輸出',-100],
@@ -117,7 +117,7 @@ function initialize() {
     monsterHard = [0,0,1,0,0,0,2,0];
 
     // 賞の名前
-    prizeName = 
+    prizeName =
 	[
 	 '100ターン杯',
 	 '300ターン杯',
@@ -134,7 +134,7 @@ function initialize() {
 	 ];
 
     // 賞の画像
-    prizeImage = 
+    prizeImage =
 	[
 	 'prize0.gif',
 	 'prize10.gif',
@@ -165,9 +165,9 @@ function initialize() {
         + '<SPAN class="title">' + titleName + '</SPAN><HR>';
 
     // フッタ
-    footer = 
+    footer =
 	'<HR><P align=center>管理者:' + adminName + '(<A HREF="mailto:' +email + '">' + email + '</A>)' +
-	'<BR>掲示板(<A HREF="' + bbs + '">' + bbs + '</A>)' + 
+	'<BR>掲示板(<A HREF="' + bbs + '">' + bbs + '</A>)' +
 	'<BR>ホームページ(<A HREF="' + homepage + '">' + homepage + '</A>)' +
 	'<BR>箱庭諸島のページ(<A HREF="http://web.archive.org/web/20070707102159/t.pos.to' + '/hako">http://t.pos.to/hako/' +
     '</A>)<BR>';
@@ -326,7 +326,7 @@ function main() {
 		document.all('mainBody').innerHTML = str + footer;
 	}else if (check == 2){
 		with (document.layers["mainBody"].document){
-			write("<HTML><BODY><DIV align='center'>",str,footer,"</DIV></BODY></HTML>"); 
+			write("<HTML><BODY><DIV align='center'>",str,footer,"</DIV></BODY></HTML>");
 			close();
 		}
 	}else if (check == 3){
@@ -341,17 +341,17 @@ function topMain() {
 	str = formHeader + '<INPUT TYPE="submit" NAME="TurnMode" VALUE="ターンを進める"></FORM>';
     }
     str +=
-	tagHeader('<BR>ターン：' + cturn + '／' + eturn + '<BR><BR>') + '<HR>' + 
+	tagHeader('<BR>ターン：' + cturn + '／' + eturn + '<BR><BR>') + '<HR>' +
 	formHeader + tagHeader('自分の島へ') + islandList() +
 	'パスワード<INPUT TYPE="password" NAME="Password" VALUE="' + dpass + '" SIZE=32 MAXLENGTH=32>' +
 	'<INPUT TYPE="submit" VALUE="開発しに行く" NAME="OwnerMode"></FORM>' +
 
-	tagHeader('<HR><BR>観光、島探し<BR><BR>') + formHeader + 
-	'<INPUT TYPE="submit" VALUE="観光／島探しに行く" NAME="MapMode"></FORM>' + 
+	tagHeader('<HR><BR>観光、島探し<BR><BR>') + formHeader +
+	'<INPUT TYPE="submit" VALUE="観光／島探しに行く" NAME="MapMode"></FORM>' +
 
-	tagHeader('<HR><BR>島名、パスワードの変更<BR><BR>') + 
-	'<P>(島名の変更は500億円、パスワード変更は無料)</P>' + formHeader + 
-	'<TABLE>' + 
+	tagHeader('<HR><BR>島名、パスワードの変更<BR><BR>') +
+	'<P>(島名の変更は500億円、パスワード変更は無料)</P>' + formHeader +
+	'<TABLE>' +
 	' <TR>' +
 	'  <TD>元の島名</TD>' +
 	'  <TD>' + islandList() + '</TD>' +
@@ -359,25 +359,25 @@ function topMain() {
 	' <TR>' +
 	'  <TD>新しい島名（変更する場合のみ）</TD>' +
 	'  <TD><INPUT TYPE="text" NAME="IslandName" SIZE=32 MAXLENGTH=32>島</TD>' +
-	' </TR>' + 
+	' </TR>' +
 	' <TR>' +
-	'  <TD>旧パスワード（必須）</TD>' + 
+	'  <TD>旧パスワード（必須）</TD>' +
 	'  <TD><INPUT TYPE="password" NAME="Password" VALUE="' + dpass + '" SIZE=32 MAXLENGTH=32></TD>' +
 	' </TR>' +
 	' <TR>' +
-	'  <TD>新パスワード（変更する場合のみ）</TD>' + 
-	'  <TD><INPUT TYPE="password" NAME="Password3" SIZE=32 MAXLENGTH=32></TD>' + 
+	'  <TD>新パスワード（変更する場合のみ）</TD>' +
+	'  <TD><INPUT TYPE="password" NAME="Password3" SIZE=32 MAXLENGTH=32></TD>' +
 	' </TR>' +
 	' <TR>' +
 	'  <TD>確認用パスワード</TD>' +
-	'  <TD><INPUT TYPE="password" NAME="Password2" SIZE=32 MAXLENGTH=32></TD>' + 
+	'  <TD><INPUT TYPE="password" NAME="Password2" SIZE=32 MAXLENGTH=32></TD>' +
 	' </TR>' +
 	' <TR>' +
 	'  <TD></TD>' +
 	'  <TD><INPUT TYPE="submit" VALUE="変更する" NAME="RenameMode"></TD>' +
-	' </TR>' + 
+	' </TR>' +
 	'</TABLE></FORM>' +
-	'<HR>'  + formHeader + 
+	'<HR>'  + formHeader +
 	'パスワード<INPUT TYPE="password" NAME="Password" SIZE=32 MAXLENGTH=32>' +
 	'<INPUT TYPE="submit" VALUE="管理者モードへ" NAME="MenteMode">' +
 	'</FORM>';
@@ -399,8 +399,8 @@ function ownerMain() {
 
     str += orderPrint(getNumberByID(currentID) + 1, 1);
 
-    str += '<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=1><TR><TD ID ="map" class="water">' + 
-	mapPrint(currentX,currentY) + 
+    str += '<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=1><TR><TD ID ="map" class="water">' +
+	mapPrint(currentX,currentY) +
 	'</TD><TD align=center class="green">' +
 	' <SPAN class="plan">計画番号</SPAN>' + planNumList() +
 	' <HR><SPAN class="plan">開発計画</SPAN><BR>' + commandList() +
@@ -425,7 +425,7 @@ function ownerMain() {
 
     // コメント入力ボックス
     str += tagHeader('<BR>コメント更新<BR><BR>') + formHeader +
-	'<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=1 class="gray">' + 
+	'<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=1 class="gray">' +
 	' <TR>' +
 	'  <TD nowrap>コメント：<INPUT TYPE=text NAME=Message SIZE=70>' +
 	'  パスワード：<INPUT TYPE=password NAME=Password VALUE="' + dpass + '" size=10>' +
@@ -435,7 +435,7 @@ function ownerMain() {
 
 
     // ログ部分
-    str += tagHeader('<BR>最近の出来事<BR><BR>') + 
+    str += tagHeader('<BR>最近の出来事<BR><BR>') +
 	'<BR><DIV ID="log">' + logPrint(currentID) + '</DIV><BR><BR>' + hisPrint();
 
     window.status='';
@@ -459,11 +459,11 @@ function sightMain() {
 
     // 島が最大数でない場合
     str += tagHeader('<H2>島を探す</H2>');
-    str += formHeader + 'どんな名前をつける予定？<BR>' + 
+    str += formHeader + 'どんな名前をつける予定？<BR>' +
 	'<INPUT TYPE="text" NAME="IslandName" SIZE=32 MAXLENGTH=32>島<BR>' +
-	'パスワードは？<BR>' + 
+	'パスワードは？<BR>' +
 	'<INPUT TYPE="password" VALUE="' + dpass + ' "NAME="Password" SIZE=32 MAXLENGTH=32><BR>' +
-	'念のためパスワードをもう一回<BR>' + 
+	'念のためパスワードをもう一回<BR>' +
 	'<INPUT TYPE="password" NAME="Password2" SIZE=32 MAXLENGTH=32><BR>' + pointList(currentX, currentY);
     if(infoData.length < maxNumber) {
 	str += '付近へ<INPUT TYPE="submit" VALUE="探しに行く" NAME="NewIslandMode"></FORM>';
@@ -478,7 +478,7 @@ function sightMain() {
     str += '<BR><DIV ID="order">' + orderPrint(1, 0) + '</DIV><BR><BR>';
 
     // ログ部分
-    str += tagHeader('<BR>最近の出来事<BR><BR>') + 
+    str += tagHeader('<BR>最近の出来事<BR><BR>') +
 	'<BR><DIV ID="log">' + logPrint(0) + '</DIV><BR><BR>' + hisPrint();
     return str;
 }
@@ -554,7 +554,7 @@ function mapPrint(sx, sy) {
     window.status = '';
     for(y = ty; y < (ty + printSize); y++) {
 	if((y % 2) == 0) {
-	    str += 
+	    str +=
 	    '<IMG WIDTH=' + is + ' HEIGHT=' + il + ' SRC="' + imgDir + 'black.gif" border=0>';
 	}
 	for(x = tx; x < (tx + printSize); x++) {
@@ -695,7 +695,7 @@ function mapPrint(sx, sy) {
 	    }
 	    var alt2;
 	    alt2 = altString.replace(/[\n]/g,"");
-	    str += 
+	    str +=
 		'<a href="javascript:pointMove(' + x + ',' + y + ');" title="' + alt2 + '" ' +
 		'ondblclick="mapMove(' + x + ',' + y + ')"  onclick="return true;" ' +
 		'onmouseover="window.status=\'' + alt2 + '\'; return true;" onmouseout="window.status=\'\'">' +
@@ -710,7 +710,7 @@ function mapPrint(sx, sy) {
     }
     str += '</TD></TR></TABLE>';
     str += 'ダブルクリックした場所が中心になります。<BR>';
-    str += '<DIV align=left><A HREF="JavaScript:changePMode();" ' + 
+    str += '<DIV align=left><A HREF="JavaScript:changePMode();" ' +
     help('マップを拡大／縮小表示します。マシン性能によっては時間がかかります。') +
     '>表示モード切り替え</A>';
 	window.status = '';
@@ -819,12 +819,12 @@ function orderPrint(number, mode) {
 	str += '<TR>' + cellNumber(i) +
 	    cellName(
 		     '<A STYLE="text-decoration:none" ' +
-		     'HREF="javascript:mapMove(' + island[2] + ',' + island[3] + ');logRewrite(' + island[1] + ');"' + 
+		     'HREF="javascript:mapMove(' + island[2] + ',' + island[3] + ');logRewrite(' + island[1] + ');"' +
 		     help('クリックすると、' + island[0] + '島(' + island[2] + ',' + island[3] + ')に飛びます') + '>' +
 		     name + '</A><BR><NOBR>' + prizeStr + '</NOBR>' ) +
-		     cellInfo(island[10] + unitPop) + 
+		     cellInfo(island[10] + unitPop) +
 		     cellInfo('(' + island[2] + ',' + island[3] + ')') +
-		     cellInfo(island[11] + unitArea) + cellInfo(money) + 
+		     cellInfo(island[11] + unitArea) + cellInfo(money) +
 		     cellInfo(island[9] + unitFood) + cellInfo(farm) +
 		     cellInfo(factory) +
 		     cellInfo(mountain) + '</TR><TR>' + cellComment('<B>コメント：</B>' + island[7]) + '<TR>';
@@ -853,7 +853,7 @@ function orderMove(d) {
 		document.all('order').innerHTML = orderPrint(currentOrder, 0);
 	}else if (check == 2){
 		with(document.layers["order"].document){
-			write("<HTML><BODY><DIV align='center'>",orderPrint(currentOrder, 0),"</DIV></BODY></HTML>"); 
+			write("<HTML><BODY><DIV align='center'>",orderPrint(currentOrder, 0),"</DIV></BODY></HTML>");
 			close();
 		}
 	}else if (check == 3){
@@ -874,7 +874,7 @@ function mapMove(x, y) {
 		document.all('map').innerHTML = str;
 	}else if (check == 2){
 		with(document.layers["map"].document){
-			write("<HTML><BODY><DIV align='center'>",str,"</DIV></BODY></HTML>"); 
+			write("<HTML><BODY><DIV align='center'>",str,"</DIV></BODY></HTML>");
 			close();
 		}
 	}else if (check == 3){
@@ -957,8 +957,8 @@ function comIn(mode) {
 		document.all('planarea').bgColor = changeCommandBG;
 	}else if (check == 2){
 		document.layers["commandtext"].value = currentPlanD();
-		with (document.layers["planarea"].document){ 
-			write("<HTML><BODY><DIV align='center'>",currentPlan(),"</DIV></BODY></HTML>"); 
+		with (document.layers["planarea"].document){
+			write("<HTML><BODY><DIV align='center'>",currentPlan(),"</DIV></BODY></HTML>");
 			close();
 		}
 		document.layers["planarea"].bgColor = changeCommandBG;
@@ -1003,7 +1003,7 @@ function currentPlanD() {
     for(i = 0; i < commandMax; i++) {
 	var c = comData[i];
 	str += c[0] + ' ' + c[1] + ' ' + c[2] + ' ' + c[3] + ' ' + c[4] + ' ';
-    }    
+    }
     return str;
 }
 
@@ -1048,14 +1048,14 @@ function currentPlan() {
 	    tstr = tname + 'へ' + name;
 	} else if(kind == 63) {
 	    // 資金付記
-	    if(amount == 0) { amount = 1; } 
+	    if(amount == 0) { amount = 1; }
 	    tstr = tname + 'へ' + name + amount + '00' + unitMoney;
 	} else if(kind == 64) {
-	    if(amount == 0) { amount = 1; } 
+	    if(amount == 0) { amount = 1; }
 	    // 食料、相手島付記
 	    tstr = tname + 'へ' + name + amount + '00' + unitFood;
 	} else if(kind == 62) {
-	    if(amount == 0) { amount = 1; } 
+	    if(amount == 0) { amount = 1; }
 	    // 食料付記
 	    tstr = name + amount + '00' + unitFood;
 	} else if(kind == 4) {
@@ -1232,8 +1232,8 @@ function logRewrite(id) {
 	if (check == 1){
 		document.all('log').innerHTML = logPrint(id);
 	}else if (check == 2){
-		with (document.layers["log"].document){ 
-			write("<HTML><BODY><DIV align='center'>",logPrint(id),"</DIV></BODY></HTML>"); 
+		with (document.layers["log"].document){
+			write("<HTML><BODY><DIV align='center'>",logPrint(id),"</DIV></BODY></HTML>");
 			close();
 		}
 	}else if (check == 3){
@@ -1244,7 +1244,7 @@ function logRewrite(id) {
 
 // ログ表示
 function logPrint(id) {
-    var str = '<A STYLE="text-decoration:none" HREF="JavaScript:logRewrite(0);" ' + help('全島のログを表示します') + 
+    var str = '<A STYLE="text-decoration:none" HREF="JavaScript:logRewrite(0);" ' + help('全島のログを表示します') +
     '><B>ログ表示</B></A><BR><BR>';
     var i, j;
     var len1 = logData.length;

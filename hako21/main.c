@@ -17,7 +17,7 @@ int main() {
 
     // クッキー内容の反映
     HakoIO::cookieInput();
-    
+
     // 情報読みこみ
     Util::lock();
     HakoIO::readInfoFile();

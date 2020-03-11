@@ -1,4 +1,302 @@
-#include "map.h"Land *Map::land;// (範囲/内包hex数)一覧// (0/1) (1/7) (2/19) (3/37) (4/61) (5/91) (6/127)// (7/169) (8/217) (9/271) (10/331) (11/397)const int ax[] = {0,0,1,-1,1,0,1,-1,0,1,-1,2,-2,2,-1,2,-1,0,1,-1,0,1,2,-2,2,-2,3,-3,3,-2,3,-2,2,-1,0,1,2,-2,-1,0,1,2,-2,3,-3,3,-3,4,-4,4,-3,4,-3,3,-2,3,-2,-1,0,1,2,-2,-1,0,1,2,3,-3,3,-3,4,-4,4,-4,5,-5,5,-4,5,-4,4,-3,4,-3,3,-2,-1,0,1,2,3,-3,-2,-1,0,1,2,3,-3,4,-4,4,-4,5,-5,5,-5,6,-6,6,-5,6,-5,5,-4,5,-4,4,-3,4,-3,-2,-1,0,1,2,3,-3,-2,-1,0,1,2,3,4,-4,4,-4,5,-5,5,-5,6,-6,6,-6,7,-7,7,-6,7,-6,6,-5,6,-5,5,-4,5,-4,4,-3,-2,-1,0,1,2,3,4,-4,-3,-2,-1,0,1,2,3,4,-4,5,-5,5,-5,6,-6,6,-6,7,-7,7,-7,8,-8,8,-7,8,-7,7,-6,7,-6,6,-5,6,-5,5,-4,5,-4,-3,-2,-1,0,1,2,3,4,-4,-3,-2,-1,0,1,2,3,4,5,-5,5,-5,6,-6,6,-6,7,-7,7,-7,8,-8,8,-8,9,-9,9,-8,9,-8,8,-7,8,-7,7,-6,7,-6,6,-5,6,-5,5,-4,-3,-2,-1,0,1,2,3,4,5,-5,-4,-3,-2,-1,0,1,2,3,4,5,-5,6,-6,6,-6,7,-7,7,-7,8,-8,8,-8,9,-9,9,-9,10,-10,10,-9,10,-9,9,-8,9,-8,8,-7,8,-7,7,-6,7,-6,6,-5,6,-5,-4,-3,-2,-1,0,1,2,3,4,5,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,-6,6,-6,7,-7,7,-7,8,-8,8,-8,9,-9,9,-9,10,-10,10,-10,11,-11,11,-10,11,-10,10,-9,10,-9,9,-8,9,-8,8,-7,8,-7,7,-6,7,-6,6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6};const int ay[] = {0,-1,-1,0,0,1,1,-2,-2,-2,-1,-1,0,0,1,1,2,2,2,-3,-3,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,3,3,-4,-4,-4,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,4,4,4,-5,-5,-5,-5,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,5,5,5,5,-6,-6,-6,-6,-6,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,6,6,6,6,6,-7,-7,-7,-7,-7,-7,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,7,7,7,7,7,7,-8,-8,-8,-8,-8,-8,-8,-8,-8,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,8,8,8,8,8,8,8,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-8,-8,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,9,9,9,9,9,9,9,9,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-9,-9,-8,-8,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10,10,10,10,10,10,10,10,10,-11,-11,-11,-11,-11,-11,-11,-11,-11,-11,-11,-11,-10,-10,-9,-9,-8,-8,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,11,11,11,11,11,11,11,11,11,11};// 領域確保void Map::alloc() {    // 領域確保    land = new Land[Value::worldSize * Value::worldSize];}// 初期化void Map::initialize() {    int size = Value::worldSize * Value::worldSize;    for(int i = 0; i < size; i++) {	land[i].initialize();    }}// ファイル出力void Map::output(ofstream *ofs) {    int i = 0;    for(int y = 0; y < Value::worldSize; y++) {	for(int x = 0; x < Value::worldSize; x++) {	    land[i].output(ofs);	    i++;	}	*ofs << "\n";    }}// ファイル入力void Map::input(ifstream *ifs) {    int i = 0;    for(int y = 0; y < Value::worldSize; y++) {	for(int x = 0; x < Value::worldSize; x++) {	    land[i].input(ifs);	    i++;	}	(*ifs).get(); // 改行読み飛ばし    }}// JavaScript出力void Map::jsOut(int number) {    int i = 0;    HakoIO::out("mapData = [\n");    for(int y = 0; y < Value::worldSize; y++) {	HakoIO::out("\"");	for(int x = 0; x < Value::worldSize; x++) {	    land[i].jsOut(number);	    i++;	}	if(y == Value::worldSize - 1) {	    HakoIO::out("\"\n");	} else {	    HakoIO::out("\",\n");	}    }    HakoIO::out("];\n");}// 周辺の座標を返すPoint Map::getPoint(int sx, int sy, int d) {    Point p;    p.x = sx + ax[d];    p.y = sy + ay[d];    // 行による位置調整    if(((p.y % 2) == 0) && ((sy % 2) == 1)) {	p.x--;    }    if((p.x < 0) || (p.x >= Value::worldSize) ||       (p.y < 0) || (p.y >= Value::worldSize)) {	p.x = -1;	p.y = -1;    }    return p;}// 指定座標のLandのポインタを返すLand *Map::getLand(int x, int y) {    if((x >= Value::worldSize) ||       (x < 0) ||       (y >= Value::worldSize) ||       (y < 0)) {	return 0;    }    return land + y * Value::worldSize + x;}// 指定座標のLandのポインタを返す(周辺版)Land *Map::getAround(int sx, int sy, int d) {    Point p = getPoint(sx, sy, d);    return getLand(p);}// 指定座標周辺で、その種類の土地を数えるint Map::countAround(int sx, int sy, int kind, int from, int to, int param) {    int count = 0;    for(int i = from; i < to; i++) {	Land *land = getAround(sx, sy, i);	if(land == 0) {	    // 領域外は海	    if(kind == Land::Sea) {		if((param == -1) || (param == Land::SeaDeep)) {		    count++;		}	    }	} else if(land->kind == kind){	    if((param == -1) || (param == land->param)) {		count++;	    }	}    }    return count;}// 指定座標周辺で、その種類の土地を数えるint Map::countNeutral(int sx, int sy, int from, int to) {    int count = 0;    for(int i = from; i < to; i++) {	Land *land = getAround(sx, sy, i);	if(land == 0) {	    count++;	} else {	    if(land->owner == 0) {		count++;	    }	}    }    return count;}// 指定座標周辺で、自分の土地かつ陸地があるかどうかint Map::nearLand(int x, int y, int from, int to, int order) {    for(int i = from; i < to; i++) {	Land *land = getAround(x, y, i);	if(land != 0) {	    if(land->owner == order) {		// 海または海底基地以外		if((land->kind != Land::Sea) &&		   (land->kind != Land::SBase)) {		    return 1;		}	    }	}    }    return 0;}// 指定座標周辺で、自分の土地かつ陸地かつ荒地以外があるかどうかint Map::nearLand2(int x, int y, int from, int to, int order) {    for(int i = from; i < to; i++) {	Land *land = getAround(x, y, i);	if(land != 0) {	    if(land->owner == order) {		// 海または海底基地または荒地以外		if((land->kind != Land::Sea) &&		   (land->kind != Land::Waste) &&		   (land->kind != Land::SBase)) {		    return 1;		}	    }	}    }    return 0;}// 人口その他を数えるvoid Map::estimate() {    int size = Value::worldSize * Value::worldSize;    // 推定可能情報を初期化    Info::clear();    // 全地形をなめる    for(int i = 0; i < size; i++) {	land[i].estimate();    }}// 海際度計算void Map::calcSea(int x, int y) {    Land *land = getLand(x, y);    if(land != 0) {	if((land->kind != Land::Sea) &&	   (land->kind != Land::SBase)) {	    // 海、海底基地以外は関係なし	    return;	}    }    // 周囲4ヘックスへ影響を与える    for(int i = 0; i < 61; i++) {	Land *land = getAround(x, y, i);	if(land != 0) {	    land->seaLevel++;	}    }}// 領土の感化void Map::infLand(int x, int y) {    Land *land = getLand(x, y);    if(land == 0) {	// 領域外なら関係なし	return;    }    if((land->kind == Land::Sea) ||       (land->kind == Land::Waste) ||        (land->kind == Land::Monster) ||        (land->kind == Land::SBase) ||        (land->kind == Land::Monument)) {	// 上記地形は関係なし	return;    }    // 中立地帯も関係なし    if(land->owner == 0) {	return;    }    // 周囲6ヘックスから影響を受ける    int d = Util::dice(6) + 1;    Land *land2 = getAround(x, y, d);    if(land2 == 0) {	return;    }    if(land2->owner == 0) {	return;    }        // 他人の土地の場合    if(land2->owner != land->owner) {	if((land2->kind == Land::Sea) ||	   (land2->kind == Land::Waste) || 	   (land2->kind == Land::Monster) || 	   (land2->kind == Land::SBase)) {	    // 上記地形は関係なし	    return;	}	// 持ち主変更	Island *island = Info::getIsland(land->owner);	int id = island->id;	Island *island2 = Info::getIsland(land2->owner);	int id2 = island2->id;	int landValue = land->landValue();	log(214, 0, id, id2, 0, x, y, landValue);	land->owner = land2->owner;    }}// 指定座標におけるヘックス処理void Map::process(int x, int y) {    Land *land = getLand(x, y);    Island *island = 0;    int id = 0;    if(land->owner != 0) {	island = Info::getIsland(land->owner);	id = island->id;    }    int landValue = land->landValue();    switch(land->kind) {    case Land::Sea: // 海	// 収入	if(land->param == Land::SeaOil) {	    log(212, 0, id, 0, 0, x, y, landValue, 1000);	    island->money += 1000;	    // 枯渇	    if(Util::dice(1000) < 40) {		log(213, 0, id, 0, 0, x, y, landValue);		land->kind = Land::Sea;		land->param = Land::SeaDeep;		land->owner = 0;	    }	}	return;    case Land::Town: // 平地、町	// 発生、成長、火災	if(island == 0) { return; } // 念のため	if((island->amonster > 0) && (land->param > 0)){
+#include "map.h"
+
+Land *Map::land;
+
+// (範囲/内包hex数)一覧
+// (0/1) (1/7) (2/19) (3/37) (4/61) (5/91) (6/127)
+// (7/169) (8/217) (9/271) (10/331) (11/397)
+const int ax[] = {0,0,1,-1,1,0,1,-1,0,1,-1,2,-2,2,-1,2,-1,0,1,-1,0,1,2,-2,2,-2,3,-3,3,-2,3,-2,2,-1,0,1,2,-2,-1,0,1,2,-2,3,-3,3,-3,4,-4,4,-3,4,-3,3,-2,3,-2,-1,0,1,2,-2,-1,0,1,2,3,-3,3,-3,4,-4,4,-4,5,-5,5,-4,5,-4,4,-3,4,-3,3,-2,-1,0,1,2,3,-3,-2,-1,0,1,2,3,-3,4,-4,4,-4,5,-5,5,-5,6,-6,6,-5,6,-5,5,-4,5,-4,4,-3,4,-3,-2,-1,0,1,2,3,-3,-2,-1,0,1,2,3,4,-4,4,-4,5,-5,5,-5,6,-6,6,-6,7,-7,7,-6,7,-6,6,-5,6,-5,5,-4,5,-4,4,-3,-2,-1,0,1,2,3,4,-4,-3,-2,-1,0,1,2,3,4,-4,5,-5,5,-5,6,-6,6,-6,7,-7,7,-7,8,-8,8,-7,8,-7,7,-6,7,-6,6,-5,6,-5,5,-4,5,-4,-3,-2,-1,0,1,2,3,4,-4,-3,-2,-1,0,1,2,3,4,5,-5,5,-5,6,-6,6,-6,7,-7,7,-7,8,-8,8,-8,9,-9,9,-8,9,-8,8,-7,8,-7,7,-6,7,-6,6,-5,6,-5,5,-4,-3,-2,-1,0,1,2,3,4,5,-5,-4,-3,-2,-1,0,1,2,3,4,5,-5,6,-6,6,-6,7,-7,7,-7,8,-8,8,-8,9,-9,9,-9,10,-10,10,-9,10,-9,9,-8,9,-8,8,-7,8,-7,7,-6,7,-6,6,-5,6,-5,-4,-3,-2,-1,0,1,2,3,4,5,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,-6,6,-6,7,-7,7,-7,8,-8,8,-8,9,-9,9,-9,10,-10,10,-10,11,-11,11,-10,11,-10,10,-9,10,-9,9,-8,9,-8,8,-7,8,-7,7,-6,7,-6,6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6};
+
+const int ay[] = {0,-1,-1,0,0,1,1,-2,-2,-2,-1,-1,0,0,1,1,2,2,2,-3,-3,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,3,3,-4,-4,-4,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,4,4,4,-5,-5,-5,-5,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,5,5,5,5,-6,-6,-6,-6,-6,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,6,6,6,6,6,-7,-7,-7,-7,-7,-7,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,7,7,7,7,7,7,-8,-8,-8,-8,-8,-8,-8,-8,-8,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,8,8,8,8,8,8,8,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-8,-8,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,9,9,9,9,9,9,9,9,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-9,-9,-8,-8,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10,10,10,10,10,10,10,10,10,-11,-11,-11,-11,-11,-11,-11,-11,-11,-11,-11,-11,-10,-10,-9,-9,-8,-8,-7,-7,-6,-6,-5,-5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,11,11,11,11,11,11,11,11,11,11};
+
+// 領域確保
+void Map::alloc() {
+    // 領域確保
+    land = new Land[Value::worldSize * Value::worldSize];
+}
+
+// 初期化
+void Map::initialize() {
+    int size = Value::worldSize * Value::worldSize;
+    for(int i = 0; i < size; i++) {
+	land[i].initialize();
+    }
+}
+
+// ファイル出力
+void Map::output(ofstream *ofs) {
+    int i = 0;
+    for(int y = 0; y < Value::worldSize; y++) {
+	for(int x = 0; x < Value::worldSize; x++) {
+	    land[i].output(ofs);
+	    i++;
+	}
+	*ofs << "\n";
+    }
+}
+
+// ファイル入力
+void Map::input(ifstream *ifs) {
+    int i = 0;
+    for(int y = 0; y < Value::worldSize; y++) {
+	for(int x = 0; x < Value::worldSize; x++) {
+	    land[i].input(ifs);
+	    i++;
+	}
+	(*ifs).get(); // 改行読み飛ばし
+    }
+}
+
+// JavaScript出力
+void Map::jsOut(int number) {
+    int i = 0;
+    HakoIO::out("mapData = [\n");
+    for(int y = 0; y < Value::worldSize; y++) {
+	HakoIO::out("\"");
+	for(int x = 0; x < Value::worldSize; x++) {
+	    land[i].jsOut(number);
+	    i++;
+	}
+	if(y == Value::worldSize - 1) {
+	    HakoIO::out("\"\n");
+	} else {
+	    HakoIO::out("\",\n");
+	}
+    }
+    HakoIO::out("];\n");
+}
+
+// 周辺の座標を返す
+Point Map::getPoint(int sx, int sy, int d) {
+    Point p;
+    p.x = sx + ax[d];
+    p.y = sy + ay[d];
+
+    // 行による位置調整
+    if(((p.y % 2) == 0) && ((sy % 2) == 1)) {
+	p.x--;
+    }
+
+    if((p.x < 0) || (p.x >= Value::worldSize) ||
+       (p.y < 0) || (p.y >= Value::worldSize)) {
+	p.x = -1;
+	p.y = -1;
+    }
+    return p;
+}
+
+// 指定座標のLandのポインタを返す
+Land *Map::getLand(int x, int y) {
+    if((x >= Value::worldSize) ||
+       (x < 0) ||
+       (y >= Value::worldSize) ||
+       (y < 0)) {
+	return 0;
+    }
+    return land + y * Value::worldSize + x;
+}
+
+// 指定座標のLandのポインタを返す(周辺版)
+Land *Map::getAround(int sx, int sy, int d) {
+    Point p = getPoint(sx, sy, d);
+    return getLand(p);
+}
+
+// 指定座標周辺で、その種類の土地を数える
+int Map::countAround(int sx, int sy, int kind, int from, int to, int param) {
+    int count = 0;
+    for(int i = from; i < to; i++) {
+	Land *land = getAround(sx, sy, i);
+	if(land == 0) {
+	    // 領域外は海
+	    if(kind == Land::Sea) {
+		if((param == -1) || (param == Land::SeaDeep)) {
+		    count++;
+		}
+	    }
+	} else if(land->kind == kind){
+	    if((param == -1) || (param == land->param)) {
+		count++;
+	    }
+	}
+    }
+    return count;
+}
+
+// 指定座標周辺で、その種類の土地を数える
+int Map::countNeutral(int sx, int sy, int from, int to) {
+    int count = 0;
+    for(int i = from; i < to; i++) {
+	Land *land = getAround(sx, sy, i);
+	if(land == 0) {
+	    count++;
+	} else {
+	    if(land->owner == 0) {
+		count++;
+	    }
+	}
+    }
+    return count;
+}
+
+
+// 指定座標周辺で、自分の土地かつ陸地があるかどうか
+int Map::nearLand(int x, int y, int from, int to, int order) {
+    for(int i = from; i < to; i++) {
+	Land *land = getAround(x, y, i);
+	if(land != 0) {
+	    if(land->owner == order) {
+		// 海または海底基地以外
+		if((land->kind != Land::Sea) &&
+		   (land->kind != Land::SBase)) {
+		    return 1;
+		}
+	    }
+	}
+    }
+    return 0;
+}
+
+// 指定座標周辺で、自分の土地かつ陸地かつ荒地以外があるかどうか
+int Map::nearLand2(int x, int y, int from, int to, int order) {
+    for(int i = from; i < to; i++) {
+	Land *land = getAround(x, y, i);
+	if(land != 0) {
+	    if(land->owner == order) {
+		// 海または海底基地または荒地以外
+		if((land->kind != Land::Sea) &&
+		   (land->kind != Land::Waste) &&
+		   (land->kind != Land::SBase)) {
+		    return 1;
+		}
+	    }
+	}
+    }
+    return 0;
+}
+
+// 人口その他を数える
+void Map::estimate() {
+    int size = Value::worldSize * Value::worldSize;
+
+    // 推定可能情報を初期化
+    Info::clear();
+
+    // 全地形をなめる
+    for(int i = 0; i < size; i++) {
+	land[i].estimate();
+    }
+}
+
+// 海際度計算
+void Map::calcSea(int x, int y) {
+    Land *land = getLand(x, y);
+    if(land != 0) {
+	if((land->kind != Land::Sea) &&
+	   (land->kind != Land::SBase)) {
+	    // 海、海底基地以外は関係なし
+	    return;
+	}
+    }
+
+    // 周囲4ヘックスへ影響を与える
+    for(int i = 0; i < 61; i++) {
+	Land *land = getAround(x, y, i);
+	if(land != 0) {
+	    land->seaLevel++;
+	}
+    }
+}
+
+// 領土の感化
+void Map::infLand(int x, int y) {
+    Land *land = getLand(x, y);
+    if(land == 0) {
+	// 領域外なら関係なし
+	return;
+    }
+
+    if((land->kind == Land::Sea) ||
+       (land->kind == Land::Waste) ||
+       (land->kind == Land::Monster) ||
+       (land->kind == Land::SBase) ||
+       (land->kind == Land::Monument)) {
+	// 上記地形は関係なし
+	return;
+    }
+
+    // 中立地帯も関係なし
+    if(land->owner == 0) {
+	return;
+    }
+
+    // 周囲6ヘックスから影響を受ける
+    int d = Util::dice(6) + 1;
+    Land *land2 = getAround(x, y, d);
+    if(land2 == 0) {
+	return;
+    }
+    if(land2->owner == 0) {
+	return;
+    }
+
+    // 他人の土地の場合
+    if(land2->owner != land->owner) {
+	if((land2->kind == Land::Sea) ||
+	   (land2->kind == Land::Waste) ||
+	   (land2->kind == Land::Monster) ||
+	   (land2->kind == Land::SBase)) {
+	    // 上記地形は関係なし
+	    return;
+	}
+	// 持ち主変更
+	Island *island = Info::getIsland(land->owner);
+	int id = island->id;
+	Island *island2 = Info::getIsland(land2->owner);
+	int id2 = island2->id;
+	int landValue = land->landValue();
+	log(214, 0, id, id2, 0, x, y, landValue);
+	land->owner = land2->owner;
+    }
+}
+
+// 指定座標におけるヘックス処理
+void Map::process(int x, int y) {
+    Land *land = getLand(x, y);
+    Island *island = 0;
+    int id = 0;
+
+    if(land->owner != 0) {
+	island = Info::getIsland(land->owner);
+	id = island->id;
+    }
+    int landValue = land->landValue();
+
+    switch(land->kind) {
+    case Land::Sea: // 海
+	// 収入
+	if(land->param == Land::SeaOil) {
+	    log(212, 0, id, 0, 0, x, y, landValue, 1000);
+	    island->money += 1000;
+
+	    // 枯渇
+	    if(Util::dice(1000) < 40) {
+		log(213, 0, id, 0, 0, x, y, landValue);
+		land->kind = Land::Sea;
+		land->param = Land::SeaDeep;
+		land->owner = 0;
+	    }
+
+	}
+
+
+	return;
+
+    case Land::Town: // 平地、町
+	// 発生、成長、火災
+	if(island == 0) { return; } // 念のため
+
+	if((island->amonster > 0) && (land->param > 0)){
 	    // 人造怪獣出現
 	    island->amonster--;
 	    disMonster(land, x, y, 0);
@@ -177,7 +475,7 @@
 		    if(tIsland) {
 			tid = tIsland->id;
 		    }
-		    
+
 		    // 防衛判定
 		    if((tKind != Land::DBase) ||
 		       (tParam != Land::DBaseTrue)) {
@@ -288,7 +586,7 @@
 			    }
 			} else if((tKind == Land::Waste) ||
 				  (tKind == Land::Mountain) ||
-				  ((tKind == Land::Sea) && 
+				  ((tKind == Land::Sea) &&
 				   (tParam != Land::SeaOil))) {
 			    // 山、荒地、海(油田以外)
 			    // 被害なし
@@ -516,7 +814,7 @@ void Map::globalDisaster() {
 	    }
 	    break;
 	}
-	
+
     }
 }
 
@@ -634,7 +932,7 @@ void Map::disTsunami(int x, int y) {
 	   ((kind != Land::Town) || (land->param != 0))&&
 	   (kind != Land::Monument)) {
 	    int c =
-		countAround(p.x, p.y, Land::Sea, 1, 7) + 
+		countAround(p.x, p.y, Land::Sea, 1, 7) +
 		countAround(p.x, p.y, Land::SBase, 1, 7);
 	    if(Util::dice(12) < (c - 1)) {
 		log(410, 0, id, 0, 0, p.x, p.y, landValue);
@@ -671,7 +969,7 @@ void Map::disTyphoon(int x, int y) {
 	   ((kind == Land::DBase) && (land->param == Land::DBaseFalse))){
 	    // 森、および記念碑を数える
 	    int c =
-		countAround(p.x, p.y, Land::Forest, 1, 7) + 
+		countAround(p.x, p.y, Land::Forest, 1, 7) +
 		countAround(p.x, p.y, Land::Monument, 1, 7);
 	    if(Util::dice(12) < (6 - c)) {
 		log(414, 0, id, 0, 0, p.x, p.y, landValue);
@@ -1045,7 +1343,7 @@ int Land::landValue() {
 	} else {
 	    return 23;
 	}
-	
+
     case Forest:
     case Farm:
     case Factory:
@@ -1069,7 +1367,7 @@ int Land::landValue() {
 
 // 土地の持ち主更新
 void Land::changeOwner(int *newOrder) {
-    if(owner == 0) { 
+    if(owner == 0) {
 	return;
     }
     owner = newOrder[owner - 1];

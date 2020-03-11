@@ -80,7 +80,7 @@ void NewIsland::main() {
     strcpy(island->password, Value::password);
     island->money = Value::initialMoney;
     island->food = Value::initialFood;
-    
+
     // 地形作成
     // 5hex内を海に初期化
     for(int i = 19; i < 91; i++) {
@@ -210,7 +210,7 @@ void NewIsland::main() {
 
     // コマンド作成
     Command::initialize();
-    
+
     // 要素推定
     Map::estimate();
 

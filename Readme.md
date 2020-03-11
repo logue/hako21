@@ -5,6 +5,6 @@
 
 同封の画像は小川克人氏が著作権をもっており、本ゲーム用途以外での使用と再配布は禁じられています。
 
-動作サンプル：<https://logue.dev/hako21/tester.html>
+動作サンプル：<https://logue.dev/hako21/tester.html>（※エンコードがShift_JISのため、Chromeでは文字化けします）
 
 あくまでも歴史的資料であり、今後の開発やサポートはありません。

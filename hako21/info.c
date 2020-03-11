@@ -51,7 +51,7 @@ void Info::sortIslands(int *newOrder) {
 		islands[i] = tmpIsland;
 		SWAP(newOrder[i], newOrder[i + 1]);
 		flag = 1;
-		
+
 	    }
 	}
     }
